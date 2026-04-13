@@ -30,9 +30,15 @@ import { CommonModule } from '@angular/common';
       align-items: center;
       justify-content: center;
       transition: opacity 0.6s ease;
+    }
 
-      &.fade-out { opacity: 0; pointer-events: none; }
-      &.hidden   { display: none; }
+    .loading-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-screen.hidden {
+      display: none;
     }
 
     .loading-content {
@@ -48,9 +54,18 @@ import { CommonModule } from '@angular/common';
       font-size: 3rem;
       font-weight: 800;
       animation: pulse 1.2s ease infinite;
+    }
 
-      .bracket { background: linear-gradient(135deg,#6366f1,#06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-      .name     { color: var(--text-primary); margin: 0 4px; }
+    .loading-logo .bracket {
+      background: linear-gradient(135deg, #6366f1, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .loading-logo .name {
+      color: var(--text-primary);
+      margin: 0 4px;
     }
 
     .loading-bar {
