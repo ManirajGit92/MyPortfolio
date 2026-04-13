@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="loading-screen" [class.fade-out]="fadeOut" [class.hidden]="hidden" aria-hidden="true">
+    <div class="loading-screen" aria-hidden="true">
       <div class="loading-content">
         <div class="loading-logo">
           <span class="bracket">&lt;</span>
@@ -29,16 +29,7 @@ import { CommonModule } from '@angular/common';
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.6s ease;
-    }
-
-    .loading-screen.fade-out {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .loading-screen.hidden {
-      display: none;
+      animation: loadingScreenExit 0.6s ease 2s forwards;
     }
 
     .loading-content {
@@ -88,20 +79,14 @@ import { CommonModule } from '@angular/common';
       color: var(--text-muted);
       letter-spacing: 1px;
     }
+
+    @keyframes loadingScreenExit {
+      to {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
   `]
 })
-export class LoadingScreenComponent implements OnInit {
-  @Output() loaded = new EventEmitter<void>();
-  fadeOut = false;
-  hidden = false;
-
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.fadeOut = true;
-      setTimeout(() => {
-        this.hidden = true;
-        this.loaded.emit();
-      }, 600);
-    }, 2000);
-  }
-}
+export class LoadingScreenComponent {}

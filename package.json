@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "firebase:deploy": "firebase deploy --only hosting",
+    "firebase:deploy:npx": "npx firebase-tools deploy --only hosting"
   },
   "private": true,
   "packageManager": "npm@9.4.1",

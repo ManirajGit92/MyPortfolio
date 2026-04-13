@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './hero.component.scss'
 })
 export class HeroComponent implements OnInit, OnDestroy {
+  readonly profileImage = 'assets/images/Maniraj.png';
   displayedText = '';
   private titles = [
     'Senior Angular Developer',

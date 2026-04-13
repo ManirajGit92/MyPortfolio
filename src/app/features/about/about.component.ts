@@ -10,6 +10,8 @@ import { ScrollRevealDirective } from '../../core/directives/scroll-reveal.direc
   styleUrl: './about.component.scss'
 })
 export class AboutComponent {
+  readonly profileImage = 'assets/images/Maniraj.png';
+
   stats = [
     { value: '5+', label: 'Years Experience', icon: 'ri-briefcase-line' },
     { value: '15+', label: 'Projects Delivered', icon: 'ri-code-box-line' },
