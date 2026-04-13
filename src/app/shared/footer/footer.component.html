@@ -1,0 +1,78 @@
+<footer class="footer" role="contentinfo">
+  <div class="footer__top">
+    <div class="container">
+      <div class="footer__grid">
+        <!-- Brand -->
+        <div class="footer__brand">
+          <div class="footer__logo">
+            <span class="logo-bracket">&lt;</span>
+            <span class="logo-name">Maniraj</span>
+            <span class="logo-bracket">/&gt;</span>
+          </div>
+          <p>Senior Angular Developer & Frontend Engineer building scalable, intelligent, and beautiful web experiences.</p>
+          <div class="footer__socials">
+            @for (s of socials; track s.label) {
+              <a [href]="s.href" target="_blank" rel="noopener" class="footer-social" [attr.aria-label]="s.label" [id]="'footer-social-' + s.label.toLowerCase()">
+                <i [class]="s.icon"></i>
+              </a>
+            }
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer__links-col">
+          <h4>Quick Links</h4>
+          <ul role="list">
+            @for (link of navLinks; track link.id) {
+              <li>
+                <a (click)="scrollTo(link.id)" role="button" [id]="'footer-nav-' + link.id">
+                  <i class="ri-arrow-right-s-line"></i> {{ link.label }}
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <!-- Skills -->
+        <div class="footer__links-col">
+          <h4>Tech Stack</h4>
+          <ul role="list">
+            <li><span><i class="ri-arrow-right-s-line"></i> Angular & TypeScript</span></li>
+            <li><span><i class="ri-arrow-right-s-line"></i> RxJS & NgRx</span></li>
+            <li><span><i class="ri-arrow-right-s-line"></i> SCSS & Responsive UI</span></li>
+            <li><span><i class="ri-arrow-right-s-line"></i> C# & ASP.NET</span></li>
+            <li><span><i class="ri-arrow-right-s-line"></i> SQL Server & Oracle</span></li>
+            <li><span><i class="ri-arrow-right-s-line"></i> Firebase & Cloud</span></li>
+            <li><span><i class="ri-arrow-right-s-line"></i> AI & TensorFlow</span></li>
+          </ul>
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="footer__cta">
+          <h4>Open to Opportunities</h4>
+          <p>Available for Senior Angular Developer & Frontend Engineer roles globally. Let's collaborate!</p>
+          <a href="mailto:maniraj@email.com" class="btn btn-primary btn-sm" id="footer-cta-email">
+            <i class="ri-mail-send-line"></i> Send Email
+          </a>
+          <a href="/assets/resume/maniraj-resume.pdf" download class="btn btn-ghost btn-sm" id="footer-download-resume" style="margin-top:8px">
+            <i class="ri-download-2-line"></i> Download Resume
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer__bottom">
+    <div class="container">
+      <p class="footer__copy">
+        &copy; {{ currentYear }} <strong>Maniraj</strong>. All rights reserved.
+      </p>
+      <p class="footer__made-with">
+        Built with <i class="ri-heart-fill" style="color:#ef4444"></i> using
+        <i class="devicon-angularjs-plain" style="color:#dd0031"></i> Angular &
+        <i class="devicon-typescript-plain" style="color:#3178c6"></i> TypeScript
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,71 @@
+<section id="skills" class="section section-bg">
+  <div class="container">
+    <div class="section-header" appScrollReveal>
+      <div class="section-tag">Technical Skills</div>
+      <h2>My <span>Tech Stack</span></h2>
+      <p>A carefully curated set of technologies I use to build world-class digital products.</p>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="skills__tabs" appScrollReveal role="tablist">
+      @for (cat of categories; track cat.id) {
+        <button
+          class="tab-btn"
+          [class.active]="activeTab() === cat.id"
+          (click)="setTab(cat.id)"
+          [id]="'tab-' + cat.id"
+          role="tab"
+          [attr.aria-selected]="activeTab() === cat.id"
+        >
+          <i [class]="cat.icon"></i>
+          {{ cat.label }}
+        </button>
+      }
+    </div>
+
+    <!-- Skills Panel -->
+    <div class="skills__panel" [attr.role]="'tabpanel'" appScrollReveal>
+      <div class="skills__grid">
+        @for (skill of activeCategory.skills; track skill.name; let i = $index) {
+          <div class="skill-card reveal" appScrollReveal [revealDelay]="i * 0.07">
+            <div class="skill-card__header">
+              <div class="skill-icon">
+                <i [class]="skill.icon" [style.color]="skill.color"></i>
+              </div>
+              <div class="skill-info">
+                <span class="skill-name">{{ skill.name }}</span>
+                <span class="skill-level">{{ skill.level }}%</span>
+              </div>
+            </div>
+            <div class="skill-bar">
+              <div
+                class="skill-bar__fill"
+                [style.width.%]="skill.level"
+                [style.background]="skill.color || 'var(--gradient-primary)'"
+              ></div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Tech icons showcase -->
+    <div class="skills__showcase" appScrollReveal>
+      <div class="showcase-label">Full Technology Spectrum</div>
+      <div class="showcase-icons">
+        <div class="showcase-icon" title="Angular"><i class="devicon-angularjs-plain" style="color:#dd0031"></i></div>
+        <div class="showcase-icon" title="TypeScript"><i class="devicon-typescript-plain" style="color:#3178c6"></i></div>
+        <div class="showcase-icon" title="JavaScript"><i class="devicon-javascript-plain" style="color:#f7df1e"></i></div>
+        <div class="showcase-icon" title="HTML5"><i class="devicon-html5-plain" style="color:#e34f26"></i></div>
+        <div class="showcase-icon" title="CSS3"><i class="devicon-css3-plain" style="color:#264de4"></i></div>
+        <div class="showcase-icon" title="C#"><i class="devicon-csharp-plain" style="color:#9b4f96"></i></div>
+        <div class="showcase-icon" title="ASP.NET"><i class="devicon-dot-net-plain" style="color:#512bd4"></i></div>
+        <div class="showcase-icon" title="SQL Server"><i class="devicon-microsoftsqlserver-plain" style="color:#cc2927"></i></div>
+        <div class="showcase-icon" title="Firebase"><i class="devicon-firebase-plain" style="color:#ffca28"></i></div>
+        <div class="showcase-icon" title="Git"><i class="devicon-git-plain" style="color:#f05032"></i></div>
+        <div class="showcase-icon" title="VS Code"><i class="devicon-vscode-plain" style="color:#007acc"></i></div>
+        <div class="showcase-icon" title="TensorFlow"><i class="devicon-tensorflow-original" style="color:#ff6f00"></i></div>
+      </div>
+    </div>
+  </div>
+</section>

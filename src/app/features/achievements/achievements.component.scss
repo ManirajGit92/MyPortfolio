@@ -1,0 +1,42 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.achievements__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
+  @include breakpoint(xl) { grid-template-columns: repeat(3, 1fr); }
+  @include breakpoint(lg) { grid-template-columns: repeat(2, 1fr); }
+  @include breakpoint(md) { grid-template-columns: 1fr; }
+}
+
+.achievement-card {
+  @include flex(column, flex-start, flex-start);
+  gap: 14px;
+  @include card-hover;
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  p {
+    font-size: 0.87rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+}
+
+.achievement-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+  @include flex;
+  font-size: 1.5rem;
+  transition: transform var(--transition-spring);
+
+  .achievement-card:hover & { transform: scale(1.15) rotate(5deg); }
+}

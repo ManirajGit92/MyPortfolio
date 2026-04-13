@@ -1,0 +1,84 @@
+<nav class="navbar" [class.scrolled]="isScrolled" role="navigation" aria-label="Main navigation">
+  <div class="navbar__container">
+
+    <!-- Logo -->
+    <div class="navbar__logo" (click)="scrollTo('hero')" role="button" tabindex="0" aria-label="Go to top">
+      <span class="logo-bracket">&lt;</span>
+      <span class="logo-name">Maniraj</span>
+      <span class="logo-bracket">/&gt;</span>
+    </div>
+
+    <!-- Desktop Nav -->
+    <ul class="navbar__links" role="list">
+      @for (link of navLinks; track link.id) {
+        <li>
+          <a
+            [class.active]="activeSection === link.id"
+            (click)="scrollTo(link.id)"
+            role="button"
+            tabindex="0"
+            [attr.aria-current]="activeSection === link.id ? 'page' : null"
+          >{{ link.label }}</a>
+        </li>
+      }
+    </ul>
+
+    <!-- Right Actions -->
+    <div class="navbar__actions">
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="themeService.isDark() ? 'Switch to light mode' : 'Switch to dark mode'">
+        @if (themeService.isDark()) {
+          <i class="ri-sun-line"></i>
+        } @else {
+          <i class="ri-moon-line"></i>
+        }
+      </button>
+
+      <!-- Hire Me -->
+      <button class="btn btn-primary btn-sm" id="navbar-hire-btn" (click)="scrollTo('contact')">
+        <i class="ri-user-add-line"></i> Hire Me
+      </button>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="hamburger" [class.open]="isMobileOpen" (click)="toggleMobile()" aria-label="Toggle mobile menu" aria-expanded="{{ isMobileOpen }}">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" [class.open]="isMobileOpen" role="dialog" aria-label="Mobile navigation">
+  <div class="mobile-drawer__backdrop" (click)="toggleMobile()"></div>
+  <div class="mobile-drawer__panel">
+    <div class="mobile-drawer__header">
+      <span class="logo-bracket">&lt;</span>
+      <span class="logo-name">Maniraj</span>
+      <span class="logo-bracket">/&gt;</span>
+      <button class="close-btn" (click)="toggleMobile()" aria-label="Close menu">
+        <i class="ri-close-line"></i>
+      </button>
+    </div>
+    <ul role="list">
+      @for (link of navLinks; track link.id) {
+        <li>
+          <a
+            [class.active]="activeSection === link.id"
+            (click)="scrollTo(link.id)"
+            role="button"
+          >
+            <span>{{ link.label }}</span>
+            <i class="ri-arrow-right-line"></i>
+          </a>
+        </li>
+      }
+    </ul>
+    <div class="mobile-drawer__footer">
+      <button class="btn btn-primary" id="mobile-hire-btn" (click)="scrollTo('contact')">
+        <i class="ri-briefcase-line"></i> Hire Me
+      </button>
+    </div>
+  </div>
+</div>

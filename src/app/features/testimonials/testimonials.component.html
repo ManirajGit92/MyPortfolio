@@ -1,0 +1,57 @@
+<section id="testimonials" class="section section-bg">
+  <div class="container">
+    <div class="section-header" appScrollReveal>
+      <div class="section-tag">Testimonials</div>
+      <h2>What People <span>Say</span></h2>
+      <p>Feedback from colleagues, managers, and clients who've experienced my work firsthand.</p>
+    </div>
+
+    <div class="testimonials__carousel" appScrollReveal>
+      <!-- Main Card -->
+      <div class="testimonial-card card card-lg">
+        <div class="testimonial-card__quote-icon" aria-hidden="true">
+          <i class="ri-double-quotes-l"></i>
+        </div>
+        <p class="testimonial-quote">{{ testimonials[current()].quote }}</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" [style.background]="testimonials[current()].color + '22'" [style.border-color]="testimonials[current()].color + '44'">
+            <span [style.color]="testimonials[current()].color">{{ testimonials[current()].initials }}</span>
+          </div>
+          <div class="author-info">
+            <strong>{{ testimonials[current()].name }}</strong>
+            <span>{{ testimonials[current()].role }}, {{ testimonials[current()].company }}</span>
+          </div>
+          <div class="author-stars" aria-label="5 stars">
+            @for (s of [1,2,3,4,5]; track s) {
+              <i class="ri-star-fill"></i>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="testimonials__nav">
+        <button class="nav-btn" id="testimonial-prev" (click)="prev()" aria-label="Previous testimonial">
+          <i class="ri-arrow-left-line"></i>
+        </button>
+
+        <div class="testimonials__dots" role="tablist" aria-label="Testimonial navigation">
+          @for (t of testimonials; track t.name; let i = $index) {
+            <button
+              class="dot"
+              [class.active]="current() === i"
+              (click)="goTo(i)"
+              [attr.aria-label]="'Testimonial from ' + t.name"
+              [attr.aria-selected]="current() === i"
+              role="tab"
+            ></button>
+          }
+        </div>
+
+        <button class="nav-btn" id="testimonial-next" (click)="next()" aria-label="Next testimonial">
+          <i class="ri-arrow-right-line"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

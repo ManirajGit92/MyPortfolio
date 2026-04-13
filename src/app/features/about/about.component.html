@@ -1,0 +1,109 @@
+<section id="about" class="section section-bg">
+  <div class="orb orb-primary" style="width:500px;height:500px;top:-100px;right:-100px;" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="section-header" appScrollReveal>
+      <div class="section-tag">About Me</div>
+      <h2>The Engineer <span>Behind the Code</span></h2>
+      <p>Passionate about crafting exceptional digital experiences through clean architecture and innovative solutions.</p>
+    </div>
+
+    <div class="about-grid">
+      <!-- Left: Visual -->
+      <div class="about__visual" appScrollReveal revealClass="reveal reveal-left">
+        <div class="about__image-wrap">
+          <div class="about__image-frame">
+            <div class="about__avatar-art">
+              <i class="ri-user-3-line"></i>
+              <span>Maniraj</span>
+              <span class="avatar-title">Senior Angular Dev</span>
+            </div>
+          </div>
+          <div class="about__exp-badge">
+            <strong>5+</strong>
+            <span>Years of<br>Experience</span>
+          </div>
+          <div class="about__tech-badge">
+            <i class="devicon-angularjs-plain" style="color:#dd0031;font-size:1.4rem"></i>
+            <i class="devicon-typescript-plain" style="color:#3178c6;font-size:1.4rem"></i>
+            <i class="devicon-csharp-plain" style="color:#9b4f96;font-size:1.4rem"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Content -->
+      <div class="about__content" appScrollReveal revealClass="reveal reveal-right">
+        <h3>Crafting Premium Web Experiences</h3>
+        <p>
+          I'm a <strong>Senior Angular Developer</strong> and <strong>Frontend Engineer</strong> with over 5 years of hands-on experience
+          building enterprise-grade web applications. I specialize in Angular ecosystem, TypeScript, and
+          creating reusable component architectures that scale.
+        </p>
+        <p>
+          My journey spans across diverse domains including <strong>staffing business platforms</strong>,
+          <strong>logistics systems</strong>, and <strong>enterprise CRM tools</strong> — each shaping my
+          ability to deliver high-performance, maintainable software for global clients.
+        </p>
+        <p>
+          Beyond the code, I'm deeply passionate about <strong>AI, automation, and DevOps</strong>.
+          I believe in continuous learning, knowledge sharing, and building products that create real impact
+          for businesses and end users alike.
+        </p>
+
+        <!-- Key competencies -->
+        <div class="about__competencies">
+          <div class="competency">
+            <i class="ri-check-double-line"></i>
+            <span>Reusable Angular Component Architecture</span>
+          </div>
+          <div class="competency">
+            <i class="ri-check-double-line"></i>
+            <span>Enterprise Frontend Performance Optimization</span>
+          </div>
+          <div class="competency">
+            <i class="ri-check-double-line"></i>
+            <span>Full-Stack Integration (C#, ASP.NET, SQL)</span>
+          </div>
+          <div class="competency">
+            <i class="ri-check-double-line"></i>
+            <span>Team Leadership & Agile Collaboration</span>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="about__actions">
+          <button class="btn btn-primary" id="about-view-projects" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+            <i class="ri-eye-line"></i> View My Work
+          </button>
+          <a class="btn btn-outline" id="about-download-resume" href="/assets/resume/maniraj-resume.pdf" download>
+            <i class="ri-download-line"></i> Download CV
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="about__stats" appScrollReveal>
+      @for (stat of stats; track stat.label) {
+        <div class="stat-card card card-sm reveal" appScrollReveal>
+          <div class="stat-icon"><i [class]="stat.icon"></i></div>
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      }
+    </div>
+
+    <!-- Interests -->
+    <div class="about__interests" appScrollReveal>
+      <h4>Interests & Passions</h4>
+      <div class="interests-grid">
+        @for (item of interests; track item.label) {
+          <div class="interest-chip">
+            <i [class]="item.icon"></i>
+            <span>{{ item.label }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,133 @@
+<section id="hero" class="hero">
+  <!-- Animated Particles -->
+  <div class="hero__particles" aria-hidden="true">
+    @for (p of particles; track $index) {
+      <div class="particle"
+        [style.left.%]="p.x"
+        [style.top.%]="p.y"
+        [style.width.px]="p.size"
+        [style.height.px]="p.size"
+        [style.animation-delay.s]="p.delay"
+        [style.animation-duration.s]="p.duration"
+      ></div>
+    }
+  </div>
+
+  <!-- Gradient Orbs -->
+  <div class="orb orb-primary hero__orb hero__orb--1" aria-hidden="true"></div>
+  <div class="orb orb-secondary hero__orb hero__orb--2" aria-hidden="true"></div>
+  <div class="orb orb-accent hero__orb hero__orb--3" aria-hidden="true"></div>
+
+  <!-- Grid overlay -->
+  <div class="hero__grid" aria-hidden="true"></div>
+
+  <div class="container hero__content">
+    <div class="hero__left">
+      <!-- Status badge -->
+      <div class="hero__badge">
+        <span class="badge-dot"></span>
+        <span>Available for New Opportunities</span>
+      </div>
+
+      <!-- Name -->
+      <h1 class="hero__name">
+        Hi, I'm <span class="gradient-text">Maniraj</span>
+      </h1>
+
+      <!-- Typing title -->
+      <div class="hero__title">
+        <span class="title-prefix">I'm a </span>
+        <span class="title-typed">{{ displayedText }}<span class="cursor">|</span></span>
+      </div>
+
+      <!-- Tagline -->
+      <p class="hero__tagline">
+        Building <strong>Scalable, Intelligent, and Beautiful</strong> Web Experiences
+        that drive real business impact and delight users.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="hero__ctas">
+        <button class="btn btn-primary btn-lg" id="hero-view-projects" (click)="scrollToSection('projects')">
+          <i class="ri-code-box-line"></i> View Projects
+        </button>
+        <button class="btn btn-outline btn-lg" id="hero-contact" (click)="scrollToSection('contact')">
+          <i class="ri-mail-send-line"></i> Contact Me
+        </button>
+        <a class="btn btn-ghost btn-lg" id="hero-resume" href="/assets/resume/maniraj-resume.pdf" download="Maniraj-Resume.pdf">
+          <i class="ri-download-2-line"></i> Resume
+        </a>
+      </div>
+
+      <!-- Social Links -->
+      <div class="hero__socials">
+        <a href="https://linkedin.com/in/maniraj" target="_blank" rel="noopener" class="social-link" id="hero-linkedin" aria-label="LinkedIn Profile">
+          <i class="ri-linkedin-fill"></i>
+        </a>
+        <a href="https://github.com/maniraj" target="_blank" rel="noopener" class="social-link" id="hero-github" aria-label="GitHub Profile">
+          <i class="ri-github-fill"></i>
+        </a>
+        <a href="mailto:maniraj@email.com" class="social-link" id="hero-email" aria-label="Send Email">
+          <i class="ri-mail-fill"></i>
+        </a>
+        <a href="https://youtube.com" target="_blank" rel="noopener" class="social-link" id="hero-youtube" aria-label="YouTube Channel">
+          <i class="ri-youtube-fill"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Hero Illustration -->
+    <div class="hero__right">
+      <div class="hero__avatar-wrap">
+        <div class="avatar-ring"></div>
+        <div class="avatar-ring-2"></div>
+        <div class="hero__avatar">
+          <div class="avatar-placeholder">
+            <i class="ri-code-s-slash-line"></i>
+            <span>M</span>
+          </div>
+        </div>
+
+        <!-- Floating tech badges -->
+        <div class="float-badge float-badge--angular">
+          <i class="devicon-angularjs-plain"></i> Angular
+        </div>
+        <div class="float-badge float-badge--ts">
+          <i class="devicon-typescript-plain"></i> TypeScript
+        </div>
+        <div class="float-badge float-badge--rxjs">
+          <i class="ri-flashlight-line"></i> RxJS
+        </div>
+        <div class="float-badge float-badge--ai">
+          <i class="ri-brain-line"></i> AI
+        </div>
+      </div>
+
+      <!-- Quick stats -->
+      <div class="hero__stats">
+        <div class="stat-item">
+          <span class="stat-number">5+</span>
+          <span class="stat-label">Years Exp</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">15+</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">10+</span>
+          <span class="stat-label">Technologies</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="hero__scroll-indicator" (click)="scrollToSection('about')" role="button" aria-label="Scroll to about section">
+    <div class="scroll-mouse">
+      <div class="scroll-wheel"></div>
+    </div>
+    <span>Scroll Down</span>
+  </div>
+</section>

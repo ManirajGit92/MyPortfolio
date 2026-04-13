@@ -1,0 +1,60 @@
+<section id="blog" class="section">
+  <div class="container">
+    <div class="section-header" appScrollReveal>
+      <div class="section-tag">Knowledge Sharing</div>
+      <h2>Articles & <span>Insights</span></h2>
+      <p>Sharing what I learn — practical Angular tips, architecture patterns, and frontend engineering insights.</p>
+    </div>
+
+    <div class="blog__grid">
+      @for (article of articles; track article.title; let i = $index) {
+        <article class="blog-card card" appScrollReveal [revealDelay]="i * 0.08">
+          <div class="blog-card__header">
+            <div class="blog-icon" [style.background]="article.categoryColor + '18'" [style.border-color]="article.categoryColor + '33'">
+              <i [class]="article.icon" [style.color]="article.categoryColor"></i>
+            </div>
+            <span class="blog-category" [style.color]="article.categoryColor" [style.background]="article.categoryColor + '15'" [style.border-color]="article.categoryColor + '30'">
+              {{ article.category }}
+            </span>
+          </div>
+
+          <div class="blog-card__body">
+            <h3>{{ article.title }}</h3>
+            <p>{{ article.excerpt }}</p>
+          </div>
+
+          <div class="blog-card__footer">
+            <div class="blog-meta">
+              <span><i class="ri-calendar-line"></i> {{ article.date }}</span>
+              <span><i class="ri-time-line"></i> {{ article.readTime }}</span>
+            </div>
+            <a [href]="article.url" class="blog-read-link" [id]="'blog-article-' + i" [attr.aria-label]="'Read: ' + article.title">
+              Read More <i class="ri-arrow-right-line"></i>
+            </a>
+          </div>
+        </article>
+      }
+    </div>
+
+    <!-- CTA -->
+    <div class="blog__cta" appScrollReveal>
+      <div class="blog-cta-card card">
+        <div class="blog-cta-icon">
+          <i class="ri-youtube-line"></i>
+        </div>
+        <div class="blog-cta-content">
+          <h3>Explore More Content</h3>
+          <p>Follow my journey on YouTube and Dev.to for Angular tutorials, tips, and frontend engineering deep dives.</p>
+        </div>
+        <div class="blog-cta-actions">
+          <a href="https://youtube.com" target="_blank" rel="noopener" class="btn btn-primary" id="blog-youtube">
+            <i class="ri-youtube-fill"></i> YouTube Channel
+          </a>
+          <a href="https://dev.to" target="_blank" rel="noopener" class="btn btn-ghost" id="blog-devto">
+            <i class="ri-article-line"></i> Dev.to Blog
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,381 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@use '../../../styles/animations' as *;
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  @include flex(row, center, center);
+  overflow: hidden;
+  padding-top: var(--navbar-height);
+  background: var(--bg-primary);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-hero);
+    z-index: 0;
+  }
+
+  // Grid pattern overlay
+  &__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.4;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+
+  // Gradient Orbs
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+
+    &--1 { width: 600px; height: 600px; top: -100px; left: -150px; }
+    &--2 { width: 500px; height: 500px; bottom: -100px; right: -100px; animation-delay: -4s; }
+    &--3 { width: 400px; height: 400px; top: 40%; left: 50%; animation-delay: -8s; }
+  }
+
+  // Particles
+  &__particles { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+
+  // Content
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    @include breakpoint(lg) { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  &__left {
+    @include flex(column, flex-start, center);
+    gap: 24px;
+
+    @include breakpoint(lg) { align-items: center; text-align: center; }
+  }
+
+  // Badge
+  &__badge {
+    @include flex(row, center, flex-start);
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-secondary);
+    animation: fadeInDown 0.8s ease 0.2s both;
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--color-secondary);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+  }
+
+  // Name
+  &__name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--text-primary);
+    animation: fadeInUp 0.8s ease 0.3s both;
+
+    .gradient-text {
+      display: block;
+      @include gradient-text;
+    }
+  }
+
+  // Typing title
+  &__title {
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-weight: 500;
+    color: var(--text-secondary);
+    animation: fadeInUp 0.8s ease 0.4s both;
+    min-height: 2.2rem;
+
+    .title-typed {
+      color: var(--color-primary-light);
+      font-weight: 600;
+    }
+
+    .cursor {
+      display: inline-block;
+      color: var(--color-secondary);
+      animation: blink 0.8s infinite;
+      font-weight: 300;
+    }
+  }
+
+  // Tagline
+  &__tagline {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 480px;
+    animation: fadeInUp 0.8s ease 0.5s both;
+
+    strong { color: var(--text-primary); }
+  }
+
+  // CTA Buttons
+  &__ctas {
+    @include flex(row, center, flex-start);
+    gap: 12px;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease 0.6s both;
+
+    @include breakpoint(lg) { justify-content: center; }
+  }
+
+  // Socials
+  &__socials {
+    @include flex(row, center, flex-start);
+    gap: 12px;
+    animation: fadeInUp 0.8s ease 0.7s both;
+
+    @include breakpoint(lg) { justify-content: center; }
+  }
+
+  // Right column - Avatar
+  &__right {
+    @include flex(column, center, center);
+    gap: 32px;
+    animation: fadeInRight 0.9s ease 0.5s both;
+
+    @include breakpoint(lg) { order: -1; }
+  }
+
+  // Stats bar
+  &__stats {
+    @include glass;
+    @include flex(row, center, space-around);
+    gap: 20px;
+    padding: 20px 32px;
+    border-radius: var(--radius-xl);
+    width: 100%;
+    max-width: 400px;
+
+    .stat-item {
+      @include flex(column, center, center);
+      gap: 4px;
+
+      .stat-number {
+        font-family: 'Syne', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 800;
+        @include gradient-text;
+      }
+
+      .stat-label {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--border-color);
+    }
+  }
+
+  // Scroll indicator
+  &__scroll-indicator {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    @include flex(column, center, center);
+    gap: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    animation: fadeInUp 1s ease 1s both;
+    transition: color var(--transition-base);
+
+    &:hover { color: var(--color-primary); }
+  }
+}
+
+// Particle
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.3;
+  animation: float linear infinite;
+}
+
+// Social link
+.social-link {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  @include glass;
+  @include flex;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  transition: all var(--transition-spring);
+
+  &:hover {
+    background: var(--color-primary);
+    color: #fff;
+    transform: translateY(-4px) scale(1.1);
+    border-color: transparent;
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+// Scroll mouse
+.scroll-mouse {
+  width: 22px;
+  height: 36px;
+  border: 2px solid var(--text-muted);
+  border-radius: 11px;
+  @include flex;
+
+  .scroll-wheel {
+    width: 4px;
+    height: 8px;
+    background: var(--color-primary);
+    border-radius: 99px;
+    animation: float 1.5s ease-in-out infinite;
+  }
+}
+
+// Avatar
+.hero__avatar-wrap {
+  position: relative;
+  width: 280px;
+  height: 280px;
+
+  @include breakpoint(md) { width: 220px; height: 220px; }
+}
+
+.avatar-ring,
+.avatar-ring-2 {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px dashed rgba(99, 102, 241, 0.3);
+  animation: spin 20s linear infinite;
+}
+
+.avatar-ring {
+  inset: -20px;
+  animation-direction: normal;
+}
+
+.avatar-ring-2 {
+  inset: -40px;
+  border-color: rgba(6, 182, 212, 0.2);
+  animation-direction: reverse;
+  animation-duration: 30s;
+}
+
+.hero__avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  padding: 4px;
+  box-shadow: var(--shadow-glow), var(--shadow-lg);
+
+  .avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    @include flex(column, center, center);
+    gap: 4px;
+
+    i {
+      font-size: 3rem;
+      @include gradient-text;
+    }
+
+    span {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      @include gradient-text;
+    }
+  }
+}
+
+// Floating tech badges
+.float-badge {
+  position: absolute;
+  @include glass;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  @include flex(row, center, center);
+  gap: 6px;
+  box-shadow: var(--shadow-md);
+  animation: float ease-in-out infinite;
+  white-space: nowrap;
+
+  i { font-size: 1rem; color: var(--color-primary); }
+
+  &--angular {
+    top: -10px;
+    right: -30px;
+    animation-duration: 7s;
+    border-color: rgba(221, 0, 49, 0.3);
+    i { color: #dd0031; }
+  }
+
+  &--ts {
+    bottom: 30px;
+    right: -40px;
+    animation-duration: 8s;
+    animation-delay: -2s;
+    border-color: rgba(49, 120, 198, 0.3);
+    i { color: #3178c6; }
+  }
+
+  &--rxjs {
+    top: 40px;
+    left: -40px;
+    animation-duration: 9s;
+    animation-delay: -4s;
+    border-color: rgba(211, 0, 90, 0.3);
+    i { color: var(--color-accent); }
+  }
+
+  &--ai {
+    bottom: -10px;
+    left: -20px;
+    animation-duration: 6s;
+    animation-delay: -1s;
+    border-color: rgba(6, 182, 212, 0.3);
+    i { color: var(--color-secondary); }
+  }
+}

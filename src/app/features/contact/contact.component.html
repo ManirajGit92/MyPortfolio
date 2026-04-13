@@ -1,0 +1,122 @@
+<section id="contact" class="section section-bg">
+  <div class="orb orb-primary" style="width:400px;height:400px;bottom:-100px;left:-100px;" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-header" appScrollReveal>
+      <div class="section-tag">Contact</div>
+      <h2>Let's <span>Work Together</span></h2>
+      <p>Whether you have an exciting project, a job opportunity, or just want to say hello — my inbox is always open.</p>
+    </div>
+
+    <!-- Recruiter CTA Banner -->
+    <div class="contact__recruiter-banner" appScrollReveal>
+      <div class="recruiter-banner__icon"><i class="ri-briefcase-4-line"></i></div>
+      <div class="recruiter-banner__text">
+        <strong>Recruiters & Hiring Managers</strong>
+        <span>I'm actively exploring Senior Angular / Frontend Engineer roles globally. Let's connect!</span>
+      </div>
+      <a href="mailto:maniraj@email.com" class="btn btn-primary" id="contact-recruiter-btn">
+        <i class="ri-mail-send-line"></i> Reach Out
+      </a>
+    </div>
+
+    <div class="contact__grid">
+      <!-- Left: Contact Info -->
+      <div class="contact__info" appScrollReveal revealClass="reveal reveal-left">
+        <h3>Get In Touch</h3>
+        <p>I'm currently open to new opportunities, exciting projects, and meaningful professional conversations.
+          Let's build something amazing together!</p>
+
+        <div class="contact-links">
+          @for (link of contactLinks; track link.label) {
+            <a [href]="link.href" class="contact-link-card" target="_blank" rel="noopener"
+               [style.border-color]="link.color + '33'" [id]="'contact-' + link.label.toLowerCase()">
+              <div class="contact-link-icon" [style.background]="link.color + '18'" [style.border-color]="link.color + '33'">
+                <i [class]="link.icon" [style.color]="link.color"></i>
+              </div>
+              <div class="contact-link-info">
+                <span class="contact-link-label">{{ link.label }}</span>
+                <span class="contact-link-value">{{ link.value }}</span>
+              </div>
+              <i class="ri-external-link-line contact-link-arrow"></i>
+            </a>
+          }
+        </div>
+      </div>
+
+      <!-- Right: Contact Form -->
+      <div class="contact__form-wrap" appScrollReveal revealClass="reveal reveal-right">
+        @if (!submitted()) {
+          <form class="contact-form card" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate id="contact-form">
+            <div class="form-row">
+              <!-- Name -->
+              <div class="form-group" [class.has-error]="f['name'].invalid && f['name'].touched">
+                <label for="contact-name">Full Name <span>*</span></label>
+                <div class="input-wrap">
+                  <i class="ri-user-line"></i>
+                  <input type="text" id="contact-name" formControlName="name" placeholder="Maniraj" autocomplete="name" />
+                </div>
+                @if (f['name'].invalid && f['name'].touched) {
+                  <span class="error-msg">Please enter your full name (min 2 chars)</span>
+                }
+              </div>
+
+              <!-- Email -->
+              <div class="form-group" [class.has-error]="f['email'].invalid && f['email'].touched">
+                <label for="contact-email">Email Address <span>*</span></label>
+                <div class="input-wrap">
+                  <i class="ri-mail-line"></i>
+                  <input type="email" id="contact-email" formControlName="email" placeholder="you@company.com" autocomplete="email" />
+                </div>
+                @if (f['email'].invalid && f['email'].touched) {
+                  <span class="error-msg">Please enter a valid email address</span>
+                }
+              </div>
+            </div>
+
+            <!-- Subject -->
+            <div class="form-group" [class.has-error]="f['subject'].invalid && f['subject'].touched">
+              <label for="contact-subject">Subject <span>*</span></label>
+              <div class="input-wrap">
+                <i class="ri-chat-4-line"></i>
+                <input type="text" id="contact-subject" formControlName="subject" placeholder="Job Opportunity / Project / Collaboration" />
+              </div>
+              @if (f['subject'].invalid && f['subject'].touched) {
+                <span class="error-msg">Please enter a subject (min 5 chars)</span>
+              }
+            </div>
+
+            <!-- Message -->
+            <div class="form-group" [class.has-error]="f['message'].invalid && f['message'].touched">
+              <label for="contact-message">Message <span>*</span></label>
+              <div class="input-wrap textarea-wrap">
+                <i class="ri-message-3-line"></i>
+                <textarea id="contact-message" formControlName="message" rows="5" placeholder="Tell me about your project, role, or idea..."></textarea>
+              </div>
+              @if (f['message'].invalid && f['message'].touched) {
+                <span class="error-msg">Message must be at least 20 characters</span>
+              }
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg submit-btn" id="contact-submit" [disabled]="sending()">
+              @if (sending()) {
+                <span class="spinner" aria-hidden="true"></span> Sending...
+              } @else {
+                <i class="ri-send-plane-fill"></i> Send Message
+              }
+            </button>
+          </form>
+        } @else {
+          <!-- Success State -->
+          <div class="contact-success card">
+            <div class="success-icon"><i class="ri-check-double-line"></i></div>
+            <h3>Message Sent Successfully!</h3>
+            <p>Thank you for reaching out. I'll get back to you within 24 hours. Looking forward to connecting!</p>
+            <button class="btn btn-outline" id="contact-send-another" (click)="resetForm()">
+              <i class="ri-refresh-line"></i> Send Another Message
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
