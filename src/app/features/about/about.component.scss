@@ -24,6 +24,7 @@
   height: 320px;
 
   @include breakpoint(md) { width: 260px; height: 260px; }
+  @include breakpoint(sm) { width: min(78vw, 280px); height: min(78vw, 280px); }
 }
 
 .about__image-frame {
@@ -68,6 +69,13 @@
     color: var(--text-muted);
     line-height: 1.4;
   }
+
+  @include breakpoint(sm) {
+    right: 50%;
+    bottom: -20px;
+    transform: translateX(50%);
+    padding: 14px 18px;
+  }
 }
 
 .about__tech-badge {
@@ -80,6 +88,13 @@
   @include flex(row, center, center);
   gap: 10px;
   box-shadow: var(--shadow-md);
+
+  @include breakpoint(sm) {
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 14px;
+  }
 }
 
 .about__content {
@@ -127,6 +142,10 @@
   @include flex(row, center, flex-start);
   gap: 12px;
   flex-wrap: wrap;
+
+  @include breakpoint(md) {
+    width: 100%;
+  }
 }
 
 // Stats
@@ -140,6 +159,7 @@
 
   @include breakpoint(lg) { grid-template-columns: repeat(2, 1fr); }
   @include breakpoint(md) { grid-template-columns: repeat(2, 1fr); }
+  @include breakpoint(sm) { grid-template-columns: 1fr; }
 
   .stat-card {
     text-align: center;
@@ -218,5 +238,20 @@
     border-color: var(--border-color-hover);
     color: var(--text-primary);
     transform: translateY(-2px);
+  }
+}
+
+@include breakpoint(lg) {
+  .about__visual,
+  .about__content {
+    text-align: center;
+  }
+
+  .about__competencies .competency {
+    justify-content: center;
+  }
+
+  .about__actions {
+    justify-content: center;
   }
 }

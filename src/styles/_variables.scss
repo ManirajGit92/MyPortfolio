@@ -54,6 +54,20 @@
   --navbar-height: 72px;
 }
 
+@media (max-width: 768px) {
+  :root {
+    --spacing-section: 72px;
+    --navbar-height: 68px;
+  }
+}
+
+@media (max-width: 576px) {
+  :root {
+    --spacing-section: 60px;
+    --navbar-height: 64px;
+  }
+}
+
 [data-theme="light"] {
   --bg-primary: #f8fafc;
   --bg-secondary: #f1f5f9;

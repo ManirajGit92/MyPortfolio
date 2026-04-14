@@ -39,13 +39,35 @@
     pointer-events: none;
     z-index: 0;
 
-    &--1 { width: 600px; height: 600px; top: -100px; left: -150px; }
-    &--2 { width: 500px; height: 500px; bottom: -100px; right: -100px; animation-delay: -4s; }
-    &--3 { width: 400px; height: 400px; top: 40%; left: 50%; animation-delay: -8s; }
+    &--1 {
+      width: 600px;
+      height: 600px;
+      top: -100px;
+      left: -150px;
+    }
+    &--2 {
+      width: 500px;
+      height: 500px;
+      bottom: -100px;
+      right: -100px;
+      animation-delay: -4s;
+    }
+    &--3 {
+      width: 400px;
+      height: 400px;
+      top: 40%;
+      left: 50%;
+      animation-delay: -8s;
+    }
   }
 
   // Particles
-  &__particles { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+  &__particles {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
 
   // Content
   &__content {
@@ -58,14 +80,29 @@
     padding-top: 40px;
     padding-bottom: 40px;
 
-    @include breakpoint(lg) { grid-template-columns: 1fr; gap: 40px; }
+    @include breakpoint(lg) {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    @include breakpoint(md) {
+      gap: 32px;
+      padding-top: 28px;
+      padding-bottom: 88px;
+    }
   }
 
   &__left {
     @include flex(column, flex-start, center);
     gap: 24px;
 
-    @include breakpoint(lg) { align-items: center; text-align: center; }
+    @include breakpoint(lg) {
+      align-items: center;
+      text-align: center;
+    }
+    @include breakpoint(md) {
+      align-items: center;
+      text-align: center;
+    }
   }
 
   // Badge
@@ -80,6 +117,13 @@
     font-weight: 500;
     color: var(--color-secondary);
     animation: fadeInDown 0.8s ease 0.2s both;
+
+    @include breakpoint(sm) {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+      padding: 10px 14px;
+    }
 
     .badge-dot {
       width: 8px;
@@ -134,7 +178,13 @@
     max-width: 480px;
     animation: fadeInUp 0.8s ease 0.5s both;
 
-    strong { color: var(--text-primary); }
+    strong {
+      color: var(--text-primary);
+    }
+
+    @include breakpoint(md) {
+      max-width: 100%;
+    }
   }
 
   // CTA Buttons
@@ -144,7 +194,20 @@
     flex-wrap: wrap;
     animation: fadeInUp 0.8s ease 0.6s both;
 
-    @include breakpoint(lg) { justify-content: center; }
+    @include breakpoint(lg) {
+      justify-content: center;
+    }
+    @include breakpoint(sm) {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 12px;
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   }
 
   // Socials
@@ -153,7 +216,15 @@
     gap: 12px;
     animation: fadeInUp 0.8s ease 0.7s both;
 
-    @include breakpoint(lg) { justify-content: center; }
+    @include breakpoint(lg) {
+      justify-content: center;
+    }
+    @include breakpoint(sm) {
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
   }
 
   // Right column - Avatar
@@ -162,7 +233,9 @@
     gap: 32px;
     animation: fadeInRight 0.9s ease 0.5s both;
 
-    @include breakpoint(lg) { order: -1; }
+    @include breakpoint(lg) {
+      order: -1;
+    }
   }
 
   // Stats bar
@@ -174,6 +247,18 @@
     border-radius: var(--radius-xl);
     width: 100%;
     max-width: 400px;
+
+    @include breakpoint(md) {
+      @include flex(column, center, center);
+      gap: 18px;
+      padding: 18px 22px;
+    }
+
+    @include breakpoint(sm) {
+      max-width: 100%;
+      gap: 12px;
+      padding: 16px;
+    }
 
     .stat-item {
       @include flex(column, center, center);
@@ -199,6 +284,10 @@
       width: 1px;
       height: 40px;
       background: var(--border-color);
+
+      @include breakpoint(sm) {
+        height: 28px;
+      }
     }
   }
 
@@ -218,7 +307,13 @@
     animation: fadeInUp 1s ease 1s both;
     transition: color var(--transition-base);
 
-    &:hover { color: var(--color-primary); }
+    &:hover {
+      color: var(--color-primary);
+    }
+
+    @include breakpoint(md) {
+      bottom: 18px;
+    }
   }
 }
 
@@ -273,8 +368,17 @@
   position: relative;
   width: 280px;
   height: 280px;
+  max-width: 100%;
 
-  @include breakpoint(md) { width: 220px; height: 220px; }
+  @include breakpoint(md) {
+    width: 220px;
+    height: 220px;
+  }
+
+  @include breakpoint(sm) {
+    width: min(72vw, 260px);
+    height: min(72vw, 260px);
+  }
 }
 
 .avatar-ring,
@@ -332,14 +436,19 @@
   animation: float ease-in-out infinite;
   white-space: nowrap;
 
-  i { font-size: 1rem; color: var(--color-primary); }
+  i {
+    font-size: 1rem;
+    color: var(--color-primary);
+  }
 
   &--angular {
     top: -10px;
     right: -30px;
     animation-duration: 7s;
     border-color: rgba(221, 0, 49, 0.3);
-    i { color: #dd0031; }
+    i {
+      color: #dd0031;
+    }
   }
 
   &--ts {
@@ -348,7 +457,9 @@
     animation-duration: 8s;
     animation-delay: -2s;
     border-color: rgba(49, 120, 198, 0.3);
-    i { color: #3178c6; }
+    i {
+      color: #3178c6;
+    }
   }
 
   &--rxjs {
@@ -357,7 +468,9 @@
     animation-duration: 9s;
     animation-delay: -4s;
     border-color: rgba(211, 0, 90, 0.3);
-    i { color: var(--color-accent); }
+    i {
+      color: var(--color-accent);
+    }
   }
 
   &--ai {
@@ -366,6 +479,39 @@
     animation-duration: 6s;
     animation-delay: -1s;
     border-color: rgba(6, 182, 212, 0.3);
-    i { color: var(--color-secondary); }
+    i {
+      color: var(--color-secondary);
+    }
+
+    @include breakpoint(md) {
+      bottom: 10px;
+      left: auto;
+      right: 4px;
+    }
+
+    @include breakpoint(sm) {
+      position: relative;
+      top: auto;
+      right: auto;
+      left: auto;
+      margin: 12px auto 0;
+    }
+  }
+
+  @include breakpoint(md) {
+    font-size: 0.85rem;
+    padding: 7px 12px;
+  }
+
+  @include breakpoint(sm) {
+    position: relative;
+    margin: 10px auto;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    width: fit-content;
+    white-space: normal;
+    transform: none;
   }
 }

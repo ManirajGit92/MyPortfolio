@@ -3,8 +3,14 @@
 
 .timeline {
   position: relative;
+  width: 100%;
   max-width: 900px;
   margin: 0 auto;
+  overflow-x: hidden;
+
+  @include breakpoint(sm) {
+    padding: 0 16px;
+  }
 
   &__line {
     position: absolute;
@@ -12,10 +18,24 @@
     top: 0;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(to bottom, transparent, var(--color-primary), var(--color-secondary), transparent);
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--color-primary),
+      var(--color-secondary),
+      transparent
+    );
     transform: translateX(-50%);
 
-    @include breakpoint(md) { left: 24px; }
+    @include breakpoint(md) {
+      left: 24px;
+      transform: translateX(0);
+    }
+
+    @include breakpoint(sm) {
+      left: 20px;
+      transform: translateX(0);
+    }
   }
 
   &__item {
@@ -31,15 +51,42 @@
       gap: 16px;
     }
 
-    // Left side card
-    .timeline__card { grid-column: 1; }
-    .timeline__dot   { grid-column: 2; }
+    @include breakpoint(sm) {
+      grid-template-columns: 36px 1fr;
+      gap: 14px;
+      margin-bottom: 36px;
 
-    // Empty spacer on right
+      .timeline__card {
+        grid-column: 2;
+        width: 100%; // ✅ FIX
+        min-width: 0; // ✅ FIX
+      }
+      .timeline__dot {
+        grid-column: 1;
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+
+    // Left side (default)
+    .timeline__card {
+      grid-column: 1;
+      width: 100%; // ✅ FIX
+      min-width: 0; // ✅ FIX
+    }
+    .timeline__dot {
+      grid-column: 2;
+    }
+
+    // Spacer
     &::after {
       content: '';
       grid-column: 3;
-      @include breakpoint(md) { display: none; }
+      @include breakpoint(md) {
+        display: none;
+      }
     }
 
     // Right side item
@@ -47,20 +94,31 @@
       .timeline__card {
         grid-column: 3;
         grid-row: 1;
+        width: 100%; // ✅ FIX
+        min-width: 0; // ✅ FIX
         @include breakpoint(md) {
           grid-column: 2;
-          grid-row: 1;
+        }
+        @include breakpoint(sm) {
+          grid-column: 2;
         }
       }
       .timeline__dot {
         grid-column: 2;
-        grid-row: 1;
+        @include breakpoint(sm) {
+          grid-column: 1;
+        }
       }
       &::after {
         content: '';
         grid-column: 1;
         grid-row: 1;
-        @include breakpoint(md) { display: none; }
+        @include breakpoint(md) {
+          display: none;
+        }
+        @include breakpoint(sm) {
+          display: none;
+        }
       }
     }
   }
@@ -68,6 +126,7 @@
   &__dot {
     width: 48px;
     height: 48px;
+    min-width: 48px;
     border-radius: 50%;
     border: 2px solid;
     @include glass;
@@ -77,17 +136,31 @@
     flex-shrink: 0;
     transition: transform var(--transition-spring);
 
-    &:hover { transform: scale(1.2); }
+    @include breakpoint(sm) {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      font-size: 1rem;
+    }
+
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 
   &__card {
+    width: 100%; // ✅ GLOBAL FIX
+    min-width: 0;
+
     &-header {
       @include flex(row, flex-start, space-between);
       gap: 12px;
       margin-bottom: 16px;
       flex-wrap: wrap;
 
-      @include breakpoint(md) { flex-direction: column; }
+      @include breakpoint(md) {
+        flex-direction: column;
+      }
     }
   }
 }
@@ -103,14 +176,18 @@
   @include flex(row, center, flex-start);
   gap: 10px;
   flex-wrap: wrap;
+  min-width: 0;
 
   .exp-company {
     @include flex(row, center, flex-start);
     gap: 4px;
     font-size: 0.88rem;
     color: var(--text-secondary);
+    min-width: 0;
 
-    i { color: var(--color-primary); }
+    i {
+      color: var(--color-primary);
+    }
   }
 }
 
@@ -123,11 +200,21 @@
   white-space: nowrap;
   flex-shrink: 0;
 
-  i { color: var(--color-secondary); }
+  i {
+    color: var(--color-secondary);
+  }
+
+  @include breakpoint(sm) {
+    white-space: normal;
+    justify-content: flex-start;
+  }
+
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 16px;
 }
 
 .exp-description {
-  font-size: 0.93rem;
   color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 16px;

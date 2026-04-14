@@ -6,7 +6,9 @@
 @use 'styles/mixins' as *;
 
 // Reset & Base
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -15,15 +17,23 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  scroll-padding-top: calc(var(--navbar-height) + 12px);
+  overflow-x: hidden;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
-  transition: background-color var(--transition-slow), color var(--transition-slow);
+  transition:
+    background-color var(--transition-slow),
+    color var(--transition-slow);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -31,16 +41,29 @@ body {
 // ===================================================
 // TYPOGRAPHY
 // ===================================================
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   line-height: 1.2;
   color: var(--text-primary);
 }
 
-p { color: var(--text-secondary); }
-a { color: var(--color-primary); text-decoration: none; }
-img { max-width: 100%; display: block; }
+p {
+  color: var(--text-secondary);
+}
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
 
 // ===================================================
 // LAYOUT UTILITIES
@@ -78,7 +101,9 @@ img { max-width: 100%; display: block; }
     background: rgba(255, 255, 255, 0.15);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
+    transition:
+      width 0.6s ease,
+      height 0.6s ease;
   }
 
   &:active::after {
@@ -143,8 +168,14 @@ img { max-width: 100%; display: block; }
   padding: 28px;
   @include card-hover;
 
-  &-sm { padding: 20px; border-radius: var(--radius-md); }
-  &-lg { padding: 36px; border-radius: var(--radius-xl); }
+  &-sm {
+    padding: 20px;
+    border-radius: var(--radius-md);
+  }
+  &-lg {
+    padding: 36px;
+    border-radius: var(--radius-xl);
+  }
 }
 
 // ===================================================
@@ -196,12 +227,18 @@ img { max-width: 100%; display: block; }
 // ===================================================
 // SCROLLBAR
 // ===================================================
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
 ::-webkit-scrollbar-thumb {
   background: var(--color-primary);
   border-radius: 99px;
-  &:hover { background: var(--color-primary-light); }
+  &:hover {
+    background: var(--color-primary-light);
+  }
 }
 
 // ===================================================
@@ -255,7 +292,9 @@ img { max-width: 100%; display: block; }
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 
-  @include breakpoint(md) { grid-template-columns: 1fr; }
+  @include breakpoint(md) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .grid-3 {
@@ -263,8 +302,12 @@ img { max-width: 100%; display: block; }
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 
-  @include breakpoint(lg) { grid-template-columns: repeat(2, 1fr); }
-  @include breakpoint(md) { grid-template-columns: 1fr; }
+  @include breakpoint(lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include breakpoint(md) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .grid-4 {
@@ -272,6 +315,45 @@ img { max-width: 100%; display: block; }
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 
-  @include breakpoint(lg) { grid-template-columns: repeat(2, 1fr); }
-  @include breakpoint(md) { grid-template-columns: 1fr; }
+  @include breakpoint(lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include breakpoint(md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include breakpoint(md) {
+  html {
+    font-size: 15px;
+  }
+
+  .section-header {
+    margin-bottom: 48px;
+  }
+
+  .btn {
+    width: 100%;
+    min-height: 48px;
+    padding-inline: 20px;
+
+    &-sm,
+    &-lg {
+      width: 100%;
+    }
+  }
+
+  .card {
+    padding: 22px;
+  }
+}
+
+@include breakpoint(sm) {
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .card {
+    padding: 18px;
+  }
 }
