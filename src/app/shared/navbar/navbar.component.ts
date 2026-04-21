@@ -1,19 +1,28 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { filter } from 'rxjs';
 import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
   themeService = inject(ThemeService);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
+
   isScrolled = false;
   isMobileOpen = false;
   activeSection = 'hero';
+  readonly isAdminRoute = signal(false);
+
+  private observer?: IntersectionObserver;
 
   navLinks = [
     { id: 'about',        label: 'About' },
@@ -28,7 +37,27 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.onScroll.bind(this));
-    this.setupScrollSpy();
+    this.isAdminRoute.set(this.router.url.startsWith('/admin'));
+    if (!this.isAdminRoute()) setTimeout(() => this.setupScrollSpy(), 0);
+
+    this.router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => {
+        this.isAdminRoute.set(this.router.url.startsWith('/admin'));
+        this.isMobileOpen = false;
+
+        if (this.isAdminRoute()) {
+          this.observer?.disconnect();
+          this.observer = undefined;
+          return;
+        }
+
+        // Re-bind scroll spy after route renders the sections
+        setTimeout(() => this.setupScrollSpy(), 0);
+      });
   }
 
   private onScroll(): void {
@@ -36,6 +65,7 @@ export class NavbarComponent implements OnInit {
   }
 
   private setupScrollSpy(): void {
+    this.observer?.disconnect();
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(e => {
@@ -51,14 +81,25 @@ export class NavbarComponent implements OnInit {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
+
+    this.observer = observer;
   }
 
   scrollTo(id: string): void {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      this.isMobileOpen = false;
+    if (this.isAdminRoute()) {
+      this.router.navigateByUrl('/').then(() => {
+        setTimeout(() => this.scrollIntoView(id), 50);
+      });
+      return;
     }
+    this.scrollIntoView(id);
+  }
+
+  private scrollIntoView(id: string): void {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    this.isMobileOpen = false;
   }
 
   toggleMobile(): void {
@@ -74,5 +115,10 @@ export class NavbarComponent implements OnInit {
     link.href = '/assets/resume/maniraj-resume.pdf';
     link.download = 'Maniraj-Resume.pdf';
     link.click();
+  }
+
+  goHome(): void {
+    this.router.navigateByUrl('/');
+    this.isMobileOpen = false;
   }
 }

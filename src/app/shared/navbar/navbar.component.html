@@ -2,7 +2,7 @@
   <div class="navbar__container">
 
     <!-- Logo -->
-    <div class="navbar__logo" (click)="scrollTo('hero')" role="button" tabindex="0" aria-label="Go to top">
+    <div class="navbar__logo" (click)="isAdminRoute() ? goHome() : scrollTo('hero')" role="button" tabindex="0" aria-label="Go to top">
       <span class="logo-bracket">&lt;</span>
       <span class="logo-name">Maniraj</span>
       <span class="logo-bracket">/&gt;</span>
@@ -10,17 +10,27 @@
 
     <!-- Desktop Nav -->
     <ul class="navbar__links" role="list">
-      @for (link of navLinks; track link.id) {
+      @if (!isAdminRoute()) {
+        @for (link of navLinks; track link.id) {
+          <li>
+            <a
+              [class.active]="activeSection === link.id"
+              (click)="scrollTo(link.id)"
+              role="button"
+              tabindex="0"
+              [attr.aria-current]="activeSection === link.id ? 'page' : null"
+            >{{ link.label }}</a>
+          </li>
+        }
+      } @else {
         <li>
-          <a
-            [class.active]="activeSection === link.id"
-            (click)="scrollTo(link.id)"
-            role="button"
-            tabindex="0"
-            [attr.aria-current]="activeSection === link.id ? 'page' : null"
-          >{{ link.label }}</a>
+          <a routerLink="/" role="link">Home</a>
         </li>
       }
+
+      <li>
+        <a routerLink="/admin" routerLinkActive="active" role="link">Admin</a>
+      </li>
     </ul>
 
     <!-- Right Actions -->
@@ -62,18 +72,34 @@
       </button>
     </div>
     <ul role="list">
-      @for (link of navLinks; track link.id) {
+      @if (!isAdminRoute()) {
+        @for (link of navLinks; track link.id) {
+          <li>
+            <a
+              [class.active]="activeSection === link.id"
+              (click)="scrollTo(link.id)"
+              role="button"
+            >
+              <span>{{ link.label }}</span>
+              <i class="ri-arrow-right-line"></i>
+            </a>
+          </li>
+        }
+      } @else {
         <li>
-          <a
-            [class.active]="activeSection === link.id"
-            (click)="scrollTo(link.id)"
-            role="button"
-          >
-            <span>{{ link.label }}</span>
+          <a routerLink="/" role="link" (click)="toggleMobile()">
+            <span>Home</span>
             <i class="ri-arrow-right-line"></i>
           </a>
         </li>
       }
+
+      <li>
+        <a routerLink="/admin" role="link" routerLinkActive="active" (click)="toggleMobile()">
+          <span>Admin</span>
+          <i class="ri-arrow-right-line"></i>
+        </a>
+      </li>
     </ul>
     <div class="mobile-drawer__footer">
       <button class="btn btn-primary" id="mobile-hire-btn" (click)="scrollTo('contact')">

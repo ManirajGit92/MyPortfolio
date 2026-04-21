@@ -1,7 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ScrollRevealDirective } from '../../core/directives/scroll-reveal.directive';
+import { SiteContentService } from '../../core/services/site-content.service';
+import type { ContactLink } from '../../core/models/site-content.model';
 
 @Component({
   selector: 'app-contact',
@@ -11,16 +13,14 @@ import { ScrollRevealDirective } from '../../core/directives/scroll-reveal.direc
   styleUrl: './contact.component.scss'
 })
 export class ContactComponent {
+  private readonly siteContent = inject(SiteContentService);
   form: FormGroup;
   submitted = signal(false);
   sending = signal(false);
 
-  contactLinks = [
-    { icon: 'ri-mail-send-line', label: 'Email', value: 'maniraj@email.com', href: 'mailto:maniraj@email.com', color: '#6366f1' },
-    { icon: 'ri-linkedin-fill', label: 'LinkedIn', value: 'linkedin.com/in/maniraj', href: 'https://linkedin.com/in/maniraj', color: '#0077b5' },
-    { icon: 'ri-github-fill', label: 'GitHub', value: 'github.com/maniraj', href: 'https://github.com/maniraj', color: '#6e777e' },
-    { icon: 'ri-map-pin-line', label: 'Location', value: 'India (Open to Remote & Relocation)', href: '#', color: '#06b6d4' },
-  ];
+  get contactLinks(): ContactLink[] {
+    return this.siteContent.content().contact.contactLinks;
+  }
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({

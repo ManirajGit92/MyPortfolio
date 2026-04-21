@@ -1,0 +1,60 @@
+<section class="admin-page section">
+  <div class="container">
+    <div class="admin-header">
+      <div>
+        <h1>Admin</h1>
+        <p class="muted">Edit the portfolio content. Saved to your browser (localStorage).</p>
+      </div>
+      <a class="btn btn-outline" routerLink="/">
+        <i class="ri-arrow-left-line"></i> Back to site
+      </a>
+    </div>
+
+    <div class="admin-card card card-lg">
+      <div class="admin-toolbar">
+        <label class="field">
+          <span>Content Type</span>
+          <select [(ngModel)]="selectedKey" (ngModelChange)="onSelectedKeyChange($event)">
+            @for (k of keys; track k) {
+              <option [ngValue]="k">{{ k }}</option>
+            }
+          </select>
+        </label>
+
+        <div class="admin-actions">
+          <button class="btn btn-primary" (click)="save()">
+            <i class="ri-save-3-line"></i> Save
+          </button>
+          <button class="btn btn-outline" (click)="resetSection()">
+            <i class="ri-refresh-line"></i> Reset Section
+          </button>
+          <button class="btn btn-outline" (click)="resetAll()">
+            <i class="ri-delete-bin-line"></i> Reset All
+          </button>
+        </div>
+      </div>
+
+      @if (status.type !== 'idle') {
+        <div class="admin-status" [class.ok]="status.type === 'ok'" [class.error]="status.type === 'error'">
+          {{ status.message }}
+        </div>
+      }
+
+      <textarea
+        class="admin-editor"
+        [(ngModel)]="editorText"
+        spellcheck="false"
+        aria-label="Content JSON editor"
+      ></textarea>
+
+      <div class="admin-footer">
+        <button class="btn btn-outline" (click)="exportAll()">
+          <i class="ri-clipboard-line"></i> Export All (Copy)
+        </button>
+        <button class="btn btn-outline" (click)="importAll()">
+          <i class="ri-download-2-line"></i> Import All (from editor)
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
