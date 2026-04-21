@@ -8,7 +8,7 @@
 
     <div class="timeline">
       @for (exp of experiences; track exp.company; let i = $index; let last = $last) {
-        <div class="timeline__item" [class.timeline__item--right]="i % 2 !== 0" appScrollReveal [revealDelay]="i * 0.15">
+        <div class="timeline__item" [class.timeline__item--right]="i % 2 !== 0 && !isMobile()" appScrollReveal [revealDelay]="i * 0.15">
           <!-- Timeline dot -->
           <div class="timeline__dot" [style.border-color]="exp.color" [style.box-shadow]="'0 0 20px ' + exp.color + '44'">
             <i [class]="exp.icon" [style.color]="exp.color"></i>

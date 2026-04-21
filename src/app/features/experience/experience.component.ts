@@ -63,4 +63,8 @@ export class ExperienceComponent {
       tech: ['AngularJS', 'Groovy', 'Grails', 'Talend ETL', 'Oracle', 'JavaScript']
     }
   ];
+
+  isMobile(): boolean {
+    return window.innerWidth <= 768;
+  }
 }
