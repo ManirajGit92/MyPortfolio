@@ -7,7 +7,7 @@ import { ScrollRevealDirective } from '../../core/directives/scroll-reveal.direc
   standalone: true,
   imports: [CommonModule, ScrollRevealDirective],
   templateUrl: './experience.component.html',
-  styleUrl: './experience.component.scss'
+  styleUrl: './experience.component.scss',
 })
 export class ExperienceComponent {
   experiences = [
@@ -18,7 +18,8 @@ export class ExperienceComponent {
       type: 'Full-Time',
       icon: 'ri-code-s-slash-line',
       color: '#6366f1',
-      description: 'Led frontend development for Matchguide, a cutting-edge staffing business platform serving Canadian markets. Architected scalable Angular solutions with reusable component systems, enhancing product quality and team velocity.',
+      description:
+        'Led frontend development for Matchguide, a cutting-edge staffing business platform serving Canadian markets. Architected scalable Angular solutions with reusable component systems, enhancing product quality and team velocity.',
       highlights: [
         'Migrated legacy Angular modules to latest Angular with standalone components',
         'Built configurable, reusable UI component library shared across 5+ modules',
@@ -26,7 +27,7 @@ export class ExperienceComponent {
         'Collaborated with product and backend teams in Agile sprint cycles',
         'Established frontend coding standards and PR review processes',
       ],
-      tech: ['Angular', 'TypeScript', 'RxJS', 'SCSS', 'REST APIs', 'Git']
+      tech: ['Angular', 'TypeScript', 'RxJS', 'SCSS', 'REST APIs', 'Git'],
     },
     {
       role: 'Frontend Lead Developer',
@@ -35,7 +36,8 @@ export class ExperienceComponent {
       type: 'Full-Time',
       icon: 'ri-team-line',
       color: '#06b6d4',
-      description: 'Led a frontend team across multiple enterprise application modules. Owned UI architecture decisions, mentored junior developers, and built the generic component library that became the foundation of the entire application.',
+      description:
+        'Led a frontend team across multiple enterprise application modules. Owned UI architecture decisions, mentored junior developers, and built the generic component library that became the foundation of the entire application.',
       highlights: [
         'Led team of 4 developers across CRM and reporting modules',
         'Designed and implemented generic reusable table, dialog, and form components',
@@ -43,7 +45,7 @@ export class ExperienceComponent {
         'Integrated complex data visualization with charts and dashboards',
         'Coordinated with offshore and onshore teams for timely delivery',
       ],
-      tech: ['Angular', 'TypeScript', 'JavaScript', 'HTML', 'SCSS', 'SQL', 'C#']
+      tech: ['Angular', 'TypeScript', 'JavaScript', 'HTML', 'SCSS', 'SQL', 'C#'],
     },
     {
       role: 'Full-Stack Developer – Logistics Systems',
@@ -52,7 +54,8 @@ export class ExperienceComponent {
       type: 'Full-Time',
       icon: 'ri-truck-line',
       color: '#a855f7',
-      description: 'Developed and maintained internal and external logistics web applications. Worked across the full stack with ETL pipelines, database management, and frontend dashboards for real-time logistics tracking.',
+      description:
+        'Developed and maintained internal and external logistics web applications. Worked across the full stack with ETL pipelines, database management, and frontend dashboards for real-time logistics tracking.',
       highlights: [
         'Built AngularJS dashboards for logistics tracking and reporting',
         'Developed Talend ETL jobs for large-scale data integration pipelines',
@@ -60,8 +63,8 @@ export class ExperienceComponent {
         'Implemented Groovy/Grails REST services for backend integration',
         'Delivered customer-facing portal for shipment tracking',
       ],
-      tech: ['AngularJS', 'Groovy', 'Grails', 'Talend ETL', 'Oracle', 'JavaScript']
-    }
+      tech: ['AngularJS', 'Groovy', 'Grails', 'Talend ETL', 'Oracle', 'JavaScript'],
+    },
   ];
 
   isMobile(): boolean {

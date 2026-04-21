@@ -8,46 +8,47 @@
 
     <div class="timeline">
       @for (exp of experiences; track exp.company; let i = $index; let last = $last) {
-        <div class="timeline__item" [class.timeline__item--right]="i % 2 !== 0 && !isMobile()" appScrollReveal [revealDelay]="i * 0.15">
-          <!-- Timeline dot -->
-          <div class="timeline__dot" [style.border-color]="exp.color" [style.box-shadow]="'0 0 20px ' + exp.color + '44'">
-            <i [class]="exp.icon" [style.color]="exp.color"></i>
+      <div class="timeline__item" [class.timeline__item--right]="i % 2 !== 0 && !isMobile()" appScrollReveal
+        [revealDelay]="i * 0.15">
+        <!-- Timeline dot -->
+        <div class="timeline__dot" [style.border-color]="exp.color" [style.box-shadow]="'0 0 20px ' + exp.color + '44'">
+          <i [class]="exp.icon" [style.color]="exp.color"></i>
+        </div>
+
+        <!-- Card -->
+        <div class="timeline__card card">
+          <div class="timeline__card-header">
+            <div>
+              <h3 class="exp-role">{{ exp.role }}</h3>
+              <div class="exp-meta">
+                <span class="exp-company"><i class="ri-building-2-line"></i> {{ exp.company }}</span>
+                <span class="badge">{{ exp.type }}</span>
+              </div>
+            </div>
+            <div class="exp-period">
+              <i class="ri-calendar-line"></i>
+              <span>{{ exp.period }}</span>
+            </div>
           </div>
 
-          <!-- Card -->
-          <div class="timeline__card card">
-            <div class="timeline__card-header">
-              <div>
-                <h3 class="exp-role">{{ exp.role }}</h3>
-                <div class="exp-meta">
-                  <span class="exp-company"><i class="ri-building-2-line"></i> {{ exp.company }}</span>
-                  <span class="badge">{{ exp.type }}</span>
-                </div>
-              </div>
-              <div class="exp-period">
-                <i class="ri-calendar-line"></i>
-                <span>{{ exp.period }}</span>
-              </div>
-            </div>
+          <p class="exp-description">{{ exp.description }}</p>
 
-            <p class="exp-description">{{ exp.description }}</p>
+          <ul class="exp-highlights">
+            @for (h of exp.highlights; track h) {
+            <li>
+              <i class="ri-arrow-right-circle-fill"></i>
+              <span>{{ h }}</span>
+            </li>
+            }
+          </ul>
 
-            <ul class="exp-highlights">
-              @for (h of exp.highlights; track h) {
-                <li>
-                  <i class="ri-arrow-right-circle-fill"></i>
-                  <span>{{ h }}</span>
-                </li>
-              }
-            </ul>
-
-            <div class="exp-tech">
-              @for (t of exp.tech; track t) {
-                <span class="badge badge-secondary">{{ t }}</span>
-              }
-            </div>
+          <div class="exp-tech">
+            @for (t of exp.tech; track t) {
+            <span class="badge badge-secondary">{{ t }}</span>
+            }
           </div>
         </div>
+      </div>
       }
 
       <!-- Timeline line -->

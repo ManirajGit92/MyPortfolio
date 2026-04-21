@@ -53,13 +53,14 @@
 
     @include breakpoint(sm) {
       grid-template-columns: 36px 1fr;
-      gap: 14px;
-      margin-bottom: 36px;
+      gap: 12px;
+      margin-bottom: 32px;
 
       .timeline__card {
         grid-column: 2;
-        width: 100%; // ✅ FIX
-        min-width: 0; // ✅ FIX
+        width: 100%;
+        min-width: 0;
+        padding: 16px;
       }
       .timeline__dot {
         grid-column: 1;
@@ -67,6 +68,18 @@
 
       &::after {
         display: none;
+      }
+    }
+
+    // Force all items to left side on mobile (override right-side positioning)
+    @include breakpoint(sm) {
+      &.timeline__item--right {
+        .timeline__card {
+          grid-column: 2 !important;
+        }
+        .timeline__dot {
+          grid-column: 1 !important;
+        }
       }
     }
 
@@ -137,10 +150,10 @@
     transition: transform var(--transition-spring);
 
     @include breakpoint(sm) {
-      width: 36px;
-      height: 36px;
-      min-width: 36px;
-      font-size: 1rem;
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      font-size: 0.9rem;
     }
 
     &:hover {
@@ -149,8 +162,12 @@
   }
 
   &__card {
-    width: 100%; // ✅ GLOBAL FIX
+    width: 100%;
     min-width: 0;
+
+    @include breakpoint(sm) {
+      padding: 16px !important;
+    }
 
     &-header {
       @include flex(row, flex-start, space-between);
@@ -161,6 +178,11 @@
       @include breakpoint(md) {
         flex-direction: column;
       }
+
+      @include breakpoint(sm) {
+        flex-direction: column;
+        gap: 8px;
+      }
     }
   }
 }
@@ -170,6 +192,11 @@
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 6px;
+
+  @include breakpoint(sm) {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
 }
 
 .exp-meta {
@@ -178,12 +205,20 @@
   flex-wrap: wrap;
   min-width: 0;
 
+  @include breakpoint(sm) {
+    gap: 8px;
+  }
+
   .exp-company {
     @include flex(row, center, flex-start);
     gap: 4px;
     font-size: 0.88rem;
     color: var(--text-secondary);
     min-width: 0;
+
+    @include breakpoint(sm) {
+      font-size: 0.8rem;
+    }
 
     i {
       color: var(--color-primary);
@@ -207,17 +242,21 @@
   @include breakpoint(sm) {
     white-space: normal;
     justify-content: flex-start;
+    font-size: 0.75rem;
   }
-
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 16px;
 }
 
 .exp-description {
+  font-size: 0.93rem;
   color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 16px;
+
+  @include breakpoint(sm) {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
 }
 
 .exp-highlights {
@@ -227,17 +266,31 @@
   gap: 8px;
   margin-bottom: 20px;
 
+  @include breakpoint(sm) {
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
   li {
     @include flex(row, flex-start, flex-start);
     gap: 8px;
     font-size: 0.88rem;
     color: var(--text-secondary);
 
+    @include breakpoint(sm) {
+      font-size: 0.8rem;
+      gap: 6px;
+    }
+
     i {
       color: var(--color-secondary);
       font-size: 0.95rem;
       flex-shrink: 0;
       margin-top: 2px;
+
+      @include breakpoint(sm) {
+        font-size: 0.8rem;
+      }
     }
   }
 }
@@ -246,4 +299,15 @@
   @include flex(row, center, flex-start);
   gap: 6px;
   flex-wrap: wrap;
+
+  @include breakpoint(sm) {
+    gap: 4px;
+  }
+
+  .badge {
+    @include breakpoint(sm) {
+      padding: 4px 10px;
+      font-size: 0.7rem;
+    }
+  }
 }
