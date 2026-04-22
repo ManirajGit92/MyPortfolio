@@ -8,6 +8,7 @@
   right: 0;
   z-index: 1000;
   height: var(--navbar-height);
+  background: var(--navbar-bg);
   transition: all var(--transition-base);
   padding: 0 24px;
 
@@ -23,9 +24,6 @@
   }
 
   &.scrolled {
-    background: var(--bg-glass);
-    backdrop-filter: var(--blur-glass);
-    -webkit-backdrop-filter: var(--blur-glass);
     border-bottom: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
   }

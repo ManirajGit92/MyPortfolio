@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 
 import { SiteContentService } from '../../core/services/site-content.service';
 import type { SiteContentKey } from '../../core/models/site-content.model';
+import { isFirebaseConfigured } from '../../core/firebase/firebase';
 
 @Component({
   selector: 'app-admin',
@@ -14,12 +15,32 @@ import type { SiteContentKey } from '../../core/models/site-content.model';
   styleUrl: './admin.component.scss',
 })
 export class AdminComponent {
-  private readonly siteContent = inject(SiteContentService);
+  readonly siteContent = inject(SiteContentService);
+  readonly firebaseConfigured = isFirebaseConfigured();
 
   keys: SiteContentKey[] = this.siteContent.keys();
   selectedKey: SiteContentKey = 'about';
   editorText = '';
   status: { type: 'idle' | 'ok' | 'error'; message: string } = { type: 'idle', message: '' };
+
+  navbarControls = { brandName: '' };
+  heroControls = {
+    badgeText: '',
+    name: '',
+    titlesText: '',
+    tagline: '',
+    profileImage: '',
+    resumeUrl: '',
+  };
+  resumeControls = {
+    name: '',
+    title: '',
+    description: '',
+    highlightsText: '',
+    pdfUrl: '',
+    pdfFileName: '',
+    linkedinUrl: '',
+  };
 
   constructor() {
     this.loadEditorFromSelectedKey();
@@ -74,5 +95,99 @@ export class AdminComponent {
     const value = this.siteContent.getSection(this.selectedKey);
     this.editorText = JSON.stringify(value, null, 2);
     this.status = { type: 'idle', message: '' };
+    this.syncControlsFromSection(value);
+  }
+
+  applyControlsToEditor(): void {
+    try {
+      const current = this.getEditorObject();
+      const next = this.mergeSectionWithControls(current);
+      this.editorText = JSON.stringify(next, null, 2);
+      this.status = { type: 'ok', message: 'Controls applied to editor. Click Save to persist.' };
+    } catch (e: any) {
+      this.status = { type: 'error', message: e?.message ?? 'Failed to apply controls' };
+    }
+  }
+
+  private getEditorObject(): any {
+    const parsed = JSON.parse(this.editorText || '{}');
+    if (!parsed || typeof parsed !== 'object') throw new Error('Invalid JSON: expected an object');
+    return parsed;
+  }
+
+  private syncControlsFromSection(sectionValue: any): void {
+    if (!sectionValue || typeof sectionValue !== 'object') return;
+
+    if (this.selectedKey === 'navbar') {
+      this.navbarControls.brandName = String(sectionValue.brandName ?? '');
+    }
+
+    if (this.selectedKey === 'hero') {
+      this.heroControls.badgeText = String(sectionValue.badgeText ?? '');
+      this.heroControls.name = String(sectionValue.name ?? '');
+      this.heroControls.tagline = String(sectionValue.tagline ?? '');
+      this.heroControls.profileImage = String(sectionValue.profileImage ?? '');
+      this.heroControls.resumeUrl = String(sectionValue.resumeUrl ?? '');
+      const titles = Array.isArray(sectionValue.titles) ? sectionValue.titles : [];
+      this.heroControls.titlesText = titles.join('\n');
+    }
+
+    if (this.selectedKey === 'resume') {
+      this.resumeControls.name = String(sectionValue.name ?? '');
+      this.resumeControls.title = String(sectionValue.title ?? '');
+      this.resumeControls.description = String(sectionValue.description ?? '');
+      this.resumeControls.pdfUrl = String(sectionValue.pdfUrl ?? '');
+      this.resumeControls.pdfFileName = String(sectionValue.pdfFileName ?? '');
+      this.resumeControls.linkedinUrl = String(sectionValue.linkedinUrl ?? '');
+      const highlights = Array.isArray(sectionValue.highlights) ? sectionValue.highlights : [];
+      this.resumeControls.highlightsText = highlights.join('\n');
+    }
+  }
+
+  private mergeSectionWithControls(sectionValue: any): any {
+    if (!sectionValue || typeof sectionValue !== 'object') return sectionValue;
+
+    if (this.selectedKey === 'navbar') {
+      return {
+        ...sectionValue,
+        brandName: this.navbarControls.brandName,
+      };
+    }
+
+    if (this.selectedKey === 'hero') {
+      const titles = this.splitLines(this.heroControls.titlesText);
+      return {
+        ...sectionValue,
+        badgeText: this.heroControls.badgeText,
+        name: this.heroControls.name,
+        titles,
+        tagline: this.heroControls.tagline,
+        profileImage: this.heroControls.profileImage,
+        resumeUrl: this.heroControls.resumeUrl,
+      };
+    }
+
+    if (this.selectedKey === 'resume') {
+      const highlights = this.splitLines(this.resumeControls.highlightsText);
+      return {
+        ...sectionValue,
+        name: this.resumeControls.name,
+        title: this.resumeControls.title,
+        description: this.resumeControls.description,
+        highlights,
+        pdfUrl: this.resumeControls.pdfUrl,
+        pdfFileName: this.resumeControls.pdfFileName,
+        linkedinUrl: this.resumeControls.linkedinUrl,
+      };
+    }
+
+    return sectionValue;
+  }
+
+  private splitLines(text: string): string[] {
+    return (text || '')
+      .split('\n')
+      .map(s => s.trim())
+      .filter(Boolean);
   }
 }

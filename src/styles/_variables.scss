@@ -52,6 +52,7 @@
 
   --spacing-section: 100px;
   --navbar-height: 72px;
+  --navbar-bg: #070b14;
 }
 
 @media (max-width: 768px) {
@@ -98,4 +99,6 @@
   --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
   --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.15);
   --shadow-glow-cyan: 0 0 40px rgba(6, 182, 212, 0.15);
+
+  --navbar-bg: #ffffff;
 }

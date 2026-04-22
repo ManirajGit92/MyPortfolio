@@ -4,6 +4,7 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/ro
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
 import { ThemeService } from '../../core/services/theme.service';
+import { SiteContentService } from '../../core/services/site-content.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +15,7 @@ import { ThemeService } from '../../core/services/theme.service';
 })
 export class NavbarComponent implements OnInit {
   themeService = inject(ThemeService);
+  private readonly siteContent = inject(SiteContentService);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -34,6 +36,10 @@ export class NavbarComponent implements OnInit {
     { id: 'blog',         label: 'Blog' },
     { id: 'contact',      label: 'Contact' },
   ];
+
+  get brandName(): string {
+    return this.siteContent.content().navbar.brandName;
+  }
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.onScroll.bind(this));

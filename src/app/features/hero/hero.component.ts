@@ -1,5 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SiteContentService } from '../../core/services/site-content.service';
+import type { SocialLink } from '../../core/models/site-content.model';
 
 @Component({
   selector: 'app-hero',
@@ -9,21 +11,22 @@ import { CommonModule } from '@angular/common';
   styleUrl: './hero.component.scss'
 })
 export class HeroComponent implements OnInit, OnDestroy {
-  readonly profileImage = 'assets/images/Maniraj.png';
+  private readonly siteContent = inject(SiteContentService);
   displayedText = '';
-  private titles = [
-    'Senior Angular Developer',
-    'Frontend Engineer',
-    'UI Specialist',
-    'Web Architect',
-    'TypeScript Expert'
-  ];
+  private titles: string[] = this.siteContent.content().hero.titles;
   private currentIndex = 0;
   private charIndex = 0;
   private isDeleting = false;
   private typeTimer: any;
 
   particles: Array<{ x: number; y: number; size: number; delay: number; duration: number }> = [];
+
+  constructor() {
+    effect(() => {
+      const hero = this.siteContent.content().hero;
+      this.titles = hero.titles?.length ? hero.titles : this.titles;
+    });
+  }
 
   ngOnInit(): void {
     this.initParticles();
@@ -70,5 +73,33 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   scrollToSection(id: string): void {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  get badgeText(): string {
+    return this.siteContent.content().hero.badgeText;
+  }
+
+  get name(): string {
+    return this.siteContent.content().hero.name;
+  }
+
+  get tagline(): string {
+    return this.siteContent.content().hero.tagline;
+  }
+
+  get resumeUrl(): string {
+    return this.siteContent.content().hero.resumeUrl;
+  }
+
+  get profileImage(): string {
+    return this.siteContent.content().hero.profileImage;
+  }
+
+  get socialLinks(): SocialLink[] {
+    return this.siteContent.content().hero.socialLinks;
+  }
+
+  get heroStats(): Array<{ value: string; label: string }> {
+    return this.siteContent.content().hero.stats;
   }
 }

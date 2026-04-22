@@ -3,7 +3,7 @@
     <div class="admin-header">
       <div>
         <h1>Admin</h1>
-        <p class="muted">Edit the portfolio content. Saved to your browser (localStorage).</p>
+        <p class="muted">Edit the portfolio content. Stored in Firestore when configured (fallback: localStorage).</p>
       </div>
       <a class="btn btn-outline" routerLink="/">
         <i class="ri-arrow-left-line"></i> Back to site
@@ -22,6 +22,9 @@
         </label>
 
         <div class="admin-actions">
+          <button class="btn btn-outline" (click)="applyControlsToEditor()">
+            <i class="ri-magic-line"></i> Apply Controls
+          </button>
           <button class="btn btn-primary" (click)="save()">
             <i class="ri-save-3-line"></i> Save
           </button>
@@ -34,9 +37,111 @@
         </div>
       </div>
 
+      <div class="admin-connection">
+        @if (firebaseConfigured) {
+          <span class="chip" [class.ok]="siteContent.firestoreConnected()">
+            <i class="ri-cloud-line"></i>
+            Firestore: {{ siteContent.firestoreConnected() ? 'connected' : 'not connected' }}
+          </span>
+          @if (siteContent.firestoreError()) {
+            <span class="chip error">
+              <i class="ri-alert-line"></i>
+              {{ siteContent.firestoreError() }}
+            </span>
+          }
+        } @else {
+          <span class="chip error">
+            <i class="ri-alert-line"></i>
+            Firestore not configured (edit `src/app/core/firebase/firebase.options.ts`)
+          </span>
+        }
+      </div>
+
       @if (status.type !== 'idle') {
         <div class="admin-status" [class.ok]="status.type === 'ok'" [class.error]="status.type === 'error'">
           {{ status.message }}
+        </div>
+      }
+
+      @if (selectedKey === 'navbar') {
+        <div class="controls card card-sm">
+          <div class="controls-title">Navbar Controls</div>
+          <label class="field">
+            <span>Brand Name</span>
+            <input [(ngModel)]="navbarControls.brandName" placeholder="Maniraj" />
+          </label>
+        </div>
+      }
+
+      @if (selectedKey === 'hero') {
+        <div class="controls card card-sm">
+          <div class="controls-title">Hero Controls</div>
+          <div class="controls-grid">
+            <label class="field">
+              <span>Badge Text</span>
+              <input [(ngModel)]="heroControls.badgeText" />
+            </label>
+            <label class="field">
+              <span>Name</span>
+              <input [(ngModel)]="heroControls.name" />
+            </label>
+            <label class="field">
+              <span>Profile Image</span>
+              <input [(ngModel)]="heroControls.profileImage" />
+            </label>
+            <label class="field">
+              <span>Resume URL</span>
+              <input [(ngModel)]="heroControls.resumeUrl" />
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Titles (one per line)</span>
+            <textarea class="mini-editor" [(ngModel)]="heroControls.titlesText" spellcheck="false"></textarea>
+          </label>
+
+          <label class="field">
+            <span>Tagline</span>
+            <textarea class="mini-editor" [(ngModel)]="heroControls.tagline" spellcheck="false"></textarea>
+          </label>
+        </div>
+      }
+
+      @if (selectedKey === 'resume') {
+        <div class="controls card card-sm">
+          <div class="controls-title">Resume Controls</div>
+          <div class="controls-grid">
+            <label class="field">
+              <span>Name</span>
+              <input [(ngModel)]="resumeControls.name" />
+            </label>
+            <label class="field">
+              <span>Title</span>
+              <input [(ngModel)]="resumeControls.title" />
+            </label>
+            <label class="field">
+              <span>PDF URL</span>
+              <input [(ngModel)]="resumeControls.pdfUrl" />
+            </label>
+            <label class="field">
+              <span>PDF Filename</span>
+              <input [(ngModel)]="resumeControls.pdfFileName" />
+            </label>
+            <label class="field">
+              <span>LinkedIn URL</span>
+              <input [(ngModel)]="resumeControls.linkedinUrl" />
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Description</span>
+            <textarea class="mini-editor" [(ngModel)]="resumeControls.description" spellcheck="false"></textarea>
+          </label>
+
+          <label class="field">
+            <span>Highlights (one per line)</span>
+            <textarea class="mini-editor" [(ngModel)]="resumeControls.highlightsText" spellcheck="false"></textarea>
+          </label>
         </div>
       }
 

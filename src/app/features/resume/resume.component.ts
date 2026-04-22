@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollRevealDirective } from '../../core/directives/scroll-reveal.directive';
+import { SiteContentService } from '../../core/services/site-content.service';
 
 @Component({
   selector: 'app-resume',
@@ -43,38 +44,37 @@ import { ScrollRevealDirective } from '../../core/directives/scroll-reveal.direc
 
         <div class="resume-card__right">
           <div class="resume-card__info">
-            <h3>Maniraj</h3>
-            <p class="resume-title">Senior Angular Developer | Frontend Engineer</p>
+            <h3>{{ resume().name }}</h3>
+            <p class="resume-title">{{ resume().title }}</p>
             <p class="resume-desc">
-              My resume details 5+ years of frontend engineering experience, showcasing
-              Angular expertise, enterprise project deliveries, leadership, and a
-              deep passion for clean, scalable architecture.
+              {{ resume().description }}
             </p>
 
             <div class="resume-highlights">
-              <div class="resume-highlight">
-                <i class="ri-check-line"></i>
-                <span>5+ years of Angular development</span>
-              </div>
-              <div class="resume-highlight">
-                <i class="ri-check-line"></i>
-                <span>Enterprise & product company experience</span>
-              </div>
-              <div class="resume-highlight">
-                <i class="ri-check-line"></i>
-                <span>Frontend Architecture & Team Leadership</span>
-              </div>
-              <div class="resume-highlight">
-                <i class="ri-check-line"></i>
-                <span>Available for global opportunities</span>
-              </div>
+              @for (h of resume().highlights; track h) {
+                <div class="resume-highlight">
+                  <i class="ri-check-line"></i>
+                  <span>{{ h }}</span>
+                </div>
+              }
             </div>
 
             <div class="resume-actions">
-              <a class="btn btn-primary btn-lg" id="resume-download" href="/assets/resume/maniraj-resume.pdf" download="Maniraj-Resume.pdf">
+              <a
+                class="btn btn-primary btn-lg"
+                id="resume-download"
+                [href]="resume().pdfUrl"
+                [attr.download]="resume().pdfFileName"
+              >
                 <i class="ri-download-2-line"></i> Download Resume
               </a>
-              <a class="btn btn-outline" id="resume-linkedin" href="https://linkedin.com/in/maniraj" target="_blank" rel="noopener">
+              <a
+                class="btn btn-outline"
+                id="resume-linkedin"
+                [href]="resume().linkedinUrl"
+                target="_blank"
+                rel="noopener"
+              >
                 <i class="ri-linkedin-fill"></i> LinkedIn Profile
               </a>
             </div>
@@ -169,4 +169,10 @@ import { ScrollRevealDirective } from '../../core/directives/scroll-reveal.direc
     }
   `]
 })
-export class ResumeComponent {}
+export class ResumeComponent {
+  private readonly siteContent = inject(SiteContentService);
+
+  resume() {
+    return this.siteContent.content().resume;
+  }
+}

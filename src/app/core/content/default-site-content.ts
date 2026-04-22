@@ -1,6 +1,35 @@
 import type { SiteContent } from '../models/site-content.model';
 
 export const DEFAULT_SITE_CONTENT: SiteContent = {
+  navbar: {
+    brandName: 'Maniraj',
+  },
+  hero: {
+    badgeText: 'Available for New Opportunities',
+    name: 'Maniraj',
+    titles: [
+      'Senior Angular Developer',
+      'Frontend Engineer',
+      'UI Specialist',
+      'Web Architect',
+      'TypeScript Expert',
+    ],
+    tagline:
+      'Building Scalable, Intelligent, and Beautiful Web Experiences that drive real business impact and delight users.',
+    profileImage: 'assets/images/Maniraj.png',
+    socialLinks: [
+      { icon: 'ri-linkedin-fill', label: 'LinkedIn', href: 'https://linkedin.com/in/maniraj' },
+      { icon: 'ri-github-fill', label: 'GitHub', href: 'https://github.com/maniraj' },
+      { icon: 'ri-mail-fill', label: 'Email', href: 'mailto:maniraj@email.com' },
+      { icon: 'ri-youtube-fill', label: 'YouTube', href: 'https://youtube.com' },
+    ],
+    stats: [
+      { value: '5+', label: 'Years Exp' },
+      { value: '15+', label: 'Projects' },
+      { value: '10+', label: 'Technologies' },
+    ],
+    resumeUrl: '/assets/resume/maniraj-resume.pdf',
+  },
   about: {
     profileImage: 'assets/images/Maniraj.png',
     stats: [
@@ -408,5 +437,19 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
       },
     ],
   },
+  resume: {
+    name: 'Maniraj',
+    title: 'Senior Angular Developer | Frontend Engineer',
+    description:
+      'My resume details 5+ years of frontend engineering experience, showcasing Angular expertise, enterprise project deliveries, leadership, and a deep passion for clean, scalable architecture.',
+    highlights: [
+      '5+ years of Angular development',
+      'Enterprise & product company experience',
+      'Frontend Architecture & Team Leadership',
+      'Available for global opportunities',
+    ],
+    pdfUrl: '/assets/resume/maniraj-resume.pdf',
+    pdfFileName: 'Maniraj-Resume.pdf',
+    linkedinUrl: 'https://linkedin.com/in/maniraj',
+  },
 };
-

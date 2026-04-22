@@ -88,7 +88,40 @@ export interface ContactLink {
   color: string;
 }
 
+export interface SocialLink {
+  icon: string;
+  label: string;
+  href: string;
+}
+
+export interface NavbarContent {
+  brandName: string;
+}
+
+export interface HeroContent {
+  badgeText: string;
+  name: string;
+  titles: string[];
+  tagline: string;
+  profileImage: string;
+  socialLinks: SocialLink[];
+  stats: Array<{ value: string; label: string }>;
+  resumeUrl: string;
+}
+
+export interface ResumeContent {
+  name: string;
+  title: string;
+  description: string;
+  highlights: string[];
+  pdfUrl: string;
+  pdfFileName: string;
+  linkedinUrl: string;
+}
+
 export interface SiteContent {
+  navbar: NavbarContent;
+  hero: HeroContent;
   about: {
     profileImage: string;
     stats: AboutStat[];
@@ -116,7 +149,7 @@ export interface SiteContent {
   contact: {
     contactLinks: ContactLink[];
   };
+  resume: ResumeContent;
 }
 
 export type SiteContentKey = keyof SiteContent;
-
